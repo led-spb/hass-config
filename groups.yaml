@@ -6,6 +6,7 @@ default_view:
      - sensor.energy
      - sensor.tv_channel
      - sensor.time
+     - sensor.door_opened
      - device_tracker.iot_nexus
      - device_tracker.kiaceed_tracker
      - device_tracker.iot_lena
@@ -33,6 +34,7 @@ weather:
 
 camera:
    - binary_sensor.door
+   - sensor.door_opened
    - binary_sensor.motion
    - script.camera_shapshot
    - camera.front_door

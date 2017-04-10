@@ -8,8 +8,9 @@ device_tracker.kiaceed_tracker:
    icon: mdi:car
    friendly_name: car
 
-sensor.door:
+sensor.door_opened:
    icon: mdi:glassdoor
+   friendly_name: door
 
 sensor.car_battery:
    icon: mdi:car-battery

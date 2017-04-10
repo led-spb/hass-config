@@ -1,7 +1,7 @@
 homeassistant:
   name: Home
-  latitude: !secrets zone_home_lat
-  longitude: !secrets zone_home_lon
+  latitude: !secret zone_home_lat
+  longitude: !secret zone_home_lon
 
   elevation: 25
   unit_system: metric
