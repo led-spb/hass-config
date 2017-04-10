@@ -1,0 +1,13 @@
+  - platform: mqtt
+    name: door
+    state_topic: /home/alarm/sensor/door
+    payload_on: 1
+    payload_off: 0
+    device_class: opening
+
+  - platform: mqtt
+    name: motion
+    state_topic: /home/alarm/camera/1/motion
+    payload_on: 1
+    payload_off: 0
+    device_class: motion

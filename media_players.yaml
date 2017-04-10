@@ -1,0 +1,5 @@
+  - platform: webostv
+    friendly_name: kitchen tv
+    name: kitchen_tv
+    host: 192.168.168.5
+    mac: !secrets kitchen_tv_mac

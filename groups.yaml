@@ -1,0 +1,55 @@
+default_view:
+   view: yes
+   entities:
+     - sensor.temperature
+     - sensor.ssh_banned
+     - sensor.energy
+     - sensor.tv_channel
+     - sensor.time
+     - device_tracker.iot_nexus
+     - device_tracker.kiaceed_tracker
+     - device_tracker.iot_lena
+     - group.network
+     - camera.front_door
+     - weather.weather
+     - media_player.kitchen_tv
+     - camera.locations
+
+security:
+   view: yes
+   entities:
+     - binary_sensor.door
+     - binary_sensor.motion
+     - group.camera
+
+network:
+   - sensor.speedtest_ping
+   - sensor.speedtest_download
+   - sensor.speedtest_upload
+
+weather:
+   - sensor.temperature
+   - weather.weather
+
+camera:
+   - binary_sensor.door
+   - binary_sensor.motion
+   - script.camera_shapshot
+   - camera.front_door
+   - camera.last_motion
+
+car:
+   view: yes
+   entities:
+     - group.kia
+     - camera.locations
+     - camera.last_track
+
+kia:
+   - automation.car_movement_alert
+   - device_tracker.kiaceed_tracker
+   - script.car_location_refresh
+   - sensor.car_activity
+   - sensor.car_battery
+   - sensor.car_temp
+   - sensor.car_move_distance

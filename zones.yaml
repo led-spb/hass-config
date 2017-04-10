@@ -1,0 +1,17 @@
+ - name: home
+   latitude: !secrets zone_home_lat
+   longitude: !secrets zone_home_lon
+   radius: 250
+   icon: mdi:home
+
+ - name: work
+   latitude: !secrets zone_work_lat
+   longitude: !secrets zone_work_lon
+   radius: 250
+   icon: mdi:worker
+
+ - name: school
+   latitude: !secrets zone_school_lat
+   longitude: !secrets zone_school_lon
+   radius: 250
+   icon: mdi:school

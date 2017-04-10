@@ -1,0 +1,72 @@
+  - platform: time_date
+    display_options:
+      - 'time'
+
+  - platform: mqtt
+    name: energy
+    device_class: power
+    unit_of_measurement: 'Wh'
+    state_topic: /home/energy
+    value_template: "{{ value_json.power }}"
+
+  - platform: template
+    sensors:
+       temperature:
+          friendly_name: outside
+          value_template: "{{ states.weather.weather.attributes.temperature }}"
+          unit_of_measurement: '°C'
+       car_distance:
+          friendly_name: car distance
+          unit_of_measurement: 'km'
+          value_template: "{{ distance(states.device_tracker.kiaceed_tracker) | round(1) }}"
+       tv_channel:
+          friendly_name: channel
+          value_template: "{{ states.media_player.kitchen_tv.attributes.source }}"
+
+  - platform: mqtt
+    unit_of_measurement: "hosts"
+    state_topic: "fail2ban/ssh"
+    name: "SSH banned"
+
+  - platform: mqtt
+    state_topic: "owntracks/kiaceed/+"
+    name: "car battery"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.batt }}"
+
+  - platform: mqtt
+    state_topic: "owntracks/kiaceed/+"
+    name: "car temp"
+    unit_of_measurement: "°C"
+    value_template: "{{ value_json.temp }}"
+
+  - platform: mqtt
+    state_topic: "owntracks/kiaceed/+"
+    name: "car activity"
+    unit_of_measurement: ""
+    value_template: "{{ value_json.tst | timestamp_custom('%d.%m.%Y %H:%M', true) }}"
+
+
+  - platform: history_stats
+    name: tv usage
+    state: 'playing'
+    entity_id: 'media_player.kitchen_tv'
+    start: '{{ now().replace(hour=7).replace(minute=0).replace(second=0) }}'
+    duration: 
+       hours: 17
+
+#  - platform: statistics
+#    entity_id: sensor.energy
+#    name: energy_1min
+#    sampling_size: 20
+
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+    hour:
+      - 0
+      - 6
+      - 12
+      - 18

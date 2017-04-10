@@ -1,0 +1,7 @@
+camera_snapshot:
+    url: http://127.0.0.1:8082/0/action/snapshot
+
+car_move_distance:
+    url: "http://127.0.0.1:8123/api/states/sensor.car_move_distance"
+    method: POST
+    payload: '{"state": {{distance}}, "attributes": {"unit_of_measurement":"km"}}'

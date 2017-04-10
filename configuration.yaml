@@ -1,0 +1,89 @@
+homeassistant:
+  name: Home
+  latitude: !secrets zone_home_lat
+  longitude: !secrets zone_home_lon
+
+  elevation: 25
+  unit_system: metric
+  time_zone: Europe/Moscow
+  customize: !include customize.yaml
+
+recorder:
+  exclude:
+    domains:
+      - automation
+      - updater
+      - weblink
+      - camera
+    entities:
+      - sun.sun
+      - sensor.time
+      - sensor.energy
+
+history:
+  exclude:
+    domains:
+      - camera
+      - sun
+
+zone: !include zones.yaml
+
+logger:
+  default: error
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: PASSWORD
+  # Uncomment this if you are using SSL or running in Docker etc
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+automation: !include automation.yaml
+
+mqtt:
+  broker: 127.0.0.1
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+notify: !include notify.yaml
+
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+camera: !include cameras.yaml
+media_player: !include media_players.yaml
+
+weather:
+  - platform: openweathermap
+    name: weather
+    api_key: !secret openweathermap_key
+
+device_tracker: !include device_tracker.yaml
+rest_command: !include rest.yaml
+group: !include groups.yaml
+script: !include scripts.yaml
+
+# Text to speech
+#tts:
+#  platform: google

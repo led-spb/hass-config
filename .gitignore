@@ -1,0 +1,12 @@
+*.pid
+*.db
+*.log
+*.db-journal
+lib
+deps
+tts
+secrets.yaml
+.*
+*.conf
+known_devices.yaml
+!/.gitignore

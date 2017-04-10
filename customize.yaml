@@ -1,0 +1,29 @@
+device_tracker.iot_len:
+   friendly_name: lena
+
+device_tracker.iot_nexus:
+   friendly_name: alexey
+
+device_tracker.kiaceed_tracker:
+   icon: mdi:car
+   friendly_name: car
+
+sensor.door:
+   icon: mdi:glassdoor
+
+sensor.car_battery:
+   icon: mdi:car-battery
+
+sensor.car_distance:
+   icon: mdi:map-marker-minus
+
+sensor.car_move_distance:
+   icon: mdi:map-marker-minus
+
+script.car_location_refresh:
+   icon: mdi:crosshairs-gps
+   friendly_name: locate a car
+
+script.camera_shapshot:
+   icon: mdi:video
+   friendly_name: snapshot

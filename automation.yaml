@@ -1,0 +1,22 @@
+- alias: 'car movement distance'
+  trigger:
+     platform: state
+     entity_id: device_tracker.kiaceed_tracker
+  condition:
+    condition: template
+    value_template: '{{ trigger.from_state!=None }}'
+  action:
+     service: rest_command.car_move_distance
+     data_template: 
+        distance: '{% if trigger.from_state!=None %}{{ distance( trigger.from_state,  trigger.to_state) | round(1) }} {% else %} 0 {% endif %}'
+
+
+- alias: 'car movement alert'
+  trigger:
+     platform: state
+     entity_id: device_tracker.kiaceed_tracker
+  condition:
+     condition: template
+     value_template: '{{ trigger.from_state!=None and distance( trigger.from_state,  trigger.to_state ) >= 1.0 }}'
+  action:
+    service: script.car_location_notify

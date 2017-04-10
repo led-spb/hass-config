@@ -1,0 +1,28 @@
+car_location_refresh:
+    sequence:
+       - service: mqtt.publish
+         data:
+            topic: "owntracks/kiaceed/tracker/cmd"
+            payload_template: '{"cmd": "locate"}'
+            qos: 1
+
+
+car_location_notify:
+    sequence:
+       - service: notify.telegram_car
+         data_template: 
+           message: "Kia Ceed location {{ states.sensor.car_activity.state }}"
+
+       - service: notify.telegram_car
+         data_template:
+           message: 'Kia Ceed location alert'
+           data:
+              location:
+                 latitude:  '{{ states.device_tracker.kiaceed_tracker.attributes.latitude }}'
+                 longitude: '{{ states.device_tracker.kiaceed_tracker.attributes.longitude }}'
+
+
+camera_shapshot:
+    sequence:
+       - service: rest_command.camera_snapshot
+

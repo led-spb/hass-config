@@ -1,0 +1,9 @@
+- name: telegram_car
+  platform: telegram
+  api_key: !secret telegram_bot_car
+  chat_id: !secret telegram_admin
+
+- name: telegram
+  platform: telegram
+  api_key: !secret telegram_bot_notify
+  chat_id: !secret telegram_admin
