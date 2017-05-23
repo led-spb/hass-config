@@ -4,6 +4,7 @@ default_view:
      - sensor.temperature
      - sensor.ssh_banned
      - sensor.energy
+     - sensor.power_per_day
      - sensor.tv_channel
      - sensor.time
      - sensor.door_opened
@@ -46,6 +47,12 @@ car:
      - group.kia
      - camera.locations
      - camera.last_track
+
+
+extra:
+   view: yes
+   entities:
+     - camera.ip_webcam
 
 kia:
    - automation.car_movement_alert

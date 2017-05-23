@@ -7,9 +7,12 @@
   still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.kiaceed_tracker.attributes.latitude }},{{ states.device_tracker.kiaceed_tracker.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:C%7C{{ states.device_tracker.kiaceed_tracker.attributes.latitude }},{{ states.device_tracker.kiaceed_tracker.attributes.longitude }}
   limit_refetch_to_url_change: true
 
-- platform: local_file
+#- platform: local_file
+#  name: last motion
+#  file_path: /home/hub/motion/lastsnap.jpg
+- platform: mqtt
   name: last motion
-  file_path: /home/hub/motion/lastsnap.jpg
+  topic: /home/alarm/camera/1/photo
 
 - platform: local_file
   name: last track

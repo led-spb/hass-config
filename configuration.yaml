@@ -44,6 +44,7 @@ http:
   # Uncomment this to add a password (recommended!)
   # api_password: PASSWORD
   # Uncomment this if you are using SSL or running in Docker etc
+  # url_prefix: /home
 
 # Checks for available updates
 updater:
@@ -59,6 +60,8 @@ logbook:
 
 # Track the sun
 sun:
+
+telegram_bot: !include telegram.yaml
 
 automation: !include automation.yaml
 
@@ -83,6 +86,10 @@ device_tracker: !include device_tracker.yaml
 rest_command: !include rest.yaml
 group: !include groups.yaml
 script: !include scripts.yaml
+
+android_ip_webcam:
+   - host: 192.168.168.206
+     port: 8088
 
 # Text to speech
 #tts:

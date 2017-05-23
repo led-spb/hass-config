@@ -48,19 +48,16 @@
     unit_of_measurement: ""
     value_template: "{{ value_json.tst | timestamp_custom('%d.%m.%Y %H:%M', true) }}"
 
-
-  - platform: history_stats
-    name: tv usage
-    state: 'playing'
-    entity_id: 'media_player.kitchen_tv'
-    start: '{{ now().replace(hour=7).replace(minute=0).replace(second=0) }}'
-    duration: 
-       hours: 17
-
 #  - platform: statistics
 #    entity_id: sensor.energy
 #    name: energy_1min
 #    sampling_size: 20
+
+  - platform: rest
+    resource: "http://127.0.0.1/graphite/render?target=last(offsetToZero(home.energy.regpower))&format=json&from=now-1day"
+    name: power_per_day
+    unit_of_measurement: 'Wh'
+    value_template: "{{ value_json[0].datapoints[0][0] }}"
 
   - platform: speedtest
     monitored_conditions:

@@ -9,18 +9,16 @@ car_location_refresh:
 
 car_location_notify:
     sequence:
-       - service: notify.telegram_car
+       - service: notify.telegram
          data_template: 
            message: "Kia Ceed location {{ states.sensor.car_activity.state }}"
-
-       - service: notify.telegram_car
+       - service: notify.telegram
          data_template:
            message: 'Kia Ceed location alert'
            data:
               location:
-                 latitude:  '{{ states.device_tracker.kiaceed_tracker.attributes.latitude }}'
-                 longitude: '{{ states.device_tracker.kiaceed_tracker.attributes.longitude }}'
-
+                 latitude: '{{ states.device_tracker.kiaceed_tracker.attributes.latitude | float }}'
+                 longitude: '{{ states.device_tracker.kiaceed_tracker.attributes.longitude | float }}'
 
 camera_shapshot:
     sequence:
