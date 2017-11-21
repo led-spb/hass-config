@@ -1,4 +1,5 @@
 car_location_refresh:
+    alias: 'Request car location'
     sequence:
        - service: mqtt.publish
          data:
@@ -6,12 +7,12 @@ car_location_refresh:
             payload_template: '{"cmd": "locate"}'
             qos: 1
 
-
 car_location_notify:
+    alias: 'Notify car location'
     sequence:
        - service: notify.telegram
          data_template: 
-           message: "Kia Ceed location {{ states.sensor.car_activity.state }}"
+           message: "Kia Ceed location {{ states.sensor.car_activity.state }} - {{ states.device_tracker.kiaceed_tracker.state }}"
        - service: notify.telegram
          data_template:
            message: 'Kia Ceed location alert'
@@ -21,6 +22,7 @@ car_location_notify:
                  longitude: '{{ states.device_tracker.kiaceed_tracker.attributes.longitude | float }}'
 
 camera_shapshot:
+    alias: 'Take snapshot'
     sequence:
        - service: rest_command.camera_snapshot
 

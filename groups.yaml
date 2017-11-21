@@ -1,64 +1,85 @@
 default_view:
-   view: yes
-   entities:
-     - sensor.temperature
-     - sensor.ssh_banned
-     - sensor.energy
-     - sensor.power_per_day
-     - sensor.tv_channel
-     - sensor.time
-     - sensor.door_opened
-     - device_tracker.iot_nexus
-     - device_tracker.kiaceed_tracker
-     - device_tracker.iot_lena
-     - group.network
-     - camera.front_door
-     - weather.weather
-     - media_player.kitchen_tv
-     - camera.locations
+  view: true
+  entities:
+  - sensor.temperature
+  - sensor.ssh_banned
+  - sensor.energy
+  - sensor.power_per_day
+  - sensor.tv_channel
+  - sensor.time
+  - sensor.door_opened
+  - device_tracker.iot_nexus
+  - device_tracker.kiaceed_tracker
+  - device_tracker.iot_lena
+  - sensor.outdoor
+  - camera.front_door
+  - camera.outdoor
+  - camera.locations
+  - weather.weather
+  - group.network
+  - media_player.kitchen_tv
+  name: default_view
 
 security:
-   view: yes
-   entities:
-     - binary_sensor.door
-     - binary_sensor.motion
-     - group.camera
-
-network:
-   - sensor.speedtest_ping
-   - sensor.speedtest_download
-   - sensor.speedtest_upload
-
-weather:
-   - sensor.temperature
-   - weather.weather
-
-camera:
-   - binary_sensor.door
-   - sensor.door_opened
-   - binary_sensor.motion
-   - script.camera_shapshot
-   - camera.front_door
-   - camera.last_motion
+  view: true
+  entities:
+  - binary_sensor.door
+  - binary_sensor.motion
+  - group.camera
 
 car:
-   view: yes
-   entities:
-     - group.kia
-     - camera.locations
-     - camera.last_track
+  view: true
+  entities:
+  - group.kia
+  - camera.locations
+  - camera.last_track
 
+
+counter:
+  view: true
+  entities:
+  - group.counters
 
 extra:
-   view: yes
-   entities:
-     - camera.ip_webcam
+  view: false
+  name: extra
+  entities:
+  - camera.ip_webcam
+
+
+counters:
+- sensor.cold_water
+- sensor.hot_water
+- sensor.energy_day
+- sensor.energy_night
+- sensor.car_odometer
+
+
+network:
+- sensor.speedtest_ping
+- sensor.speedtest_download
+- sensor.speedtest_upload
+
+weather:
+- sensor.outdoor
+- sensor.temperature
+- weather.weather
+
+camera:
+- binary_sensor.door
+- sensor.door_opened
+- binary_sensor.motion
+- script.camera_shapshot
+- camera.front_door
+#- camera.last_motion
+- camera.last_video
 
 kia:
-   - automation.car_movement_alert
-   - device_tracker.kiaceed_tracker
-   - script.car_location_refresh
-   - sensor.car_activity
-   - sensor.car_battery
-   - sensor.car_temp
-   - sensor.car_move_distance
+- automation.car_movement_alert
+- device_tracker.kiaceed_tracker
+- script.car_location_refresh
+- sensor.car_activity
+- sensor.car_odometer
+- sensor.car_track
+- sensor.car_battery
+- sensor.car_temp

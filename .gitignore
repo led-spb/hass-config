@@ -2,6 +2,8 @@
 *.db
 *.log
 *.db-journal
+bin
+include
 lib
 deps
 tts

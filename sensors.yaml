@@ -3,20 +3,20 @@
       - 'time'
 
   - platform: mqtt
-    name: energy
+    name: Energy
     device_class: power
     unit_of_measurement: 'Wh'
-    state_topic: /home/energy
+    state_topic: /home/sensor/energy
     value_template: "{{ value_json.power }}"
 
   - platform: template
     sensors:
        temperature:
-          friendly_name: outside
+          friendly_name: Outside
           value_template: "{{ states.weather.weather.attributes.temperature }}"
           unit_of_measurement: '°C'
        car_distance:
-          friendly_name: car distance
+          friendly_name: Car distance
           unit_of_measurement: 'km'
           value_template: "{{ distance(states.device_tracker.kiaceed_tracker) | round(1) }}"
        tv_channel:
@@ -30,35 +30,73 @@
     state_topic: "fail2ban/ssh"
     name: "SSH banned"
 
+#  - platform: mqtt
+#    state_topic: "/home/sensor/28A83AD500AC"
+#    name: "Outdoor"
+#    unit_of_measurement: '°C'
+
+# Car sensors
   - platform: mqtt
     state_topic: "owntracks/kiaceed/+"
-    name: "car battery"
+    name: "Car battery"
     unit_of_measurement: "%"
     value_template: "{{ value_json.batt }}"
 
   - platform: mqtt
     state_topic: "owntracks/kiaceed/+"
-    name: "car temp"
+    name: "Car temp"
     unit_of_measurement: "°C"
     value_template: "{{ value_json.temp }}"
 
   - platform: mqtt
     state_topic: "owntracks/kiaceed/+"
-    name: "car activity"
+    name: "Car activity"
     unit_of_measurement: ""
     value_template: "{{ value_json.tst | timestamp_custom('%d.%m.%Y %H:%M', true) }}"
 
-#  - platform: statistics
-#    entity_id: sensor.energy
-#    name: energy_1min
-#    sampling_size: 20
+  - platform: mqtt
+    state_topic: "owntracks/kiaceed/+/stat"
+    name: 'Car odometer'
+    unit_of_measurement: 'km'
+    value_template: "{{ value_json['odo'] | round(1) }}"
+
+  - platform: mqtt
+    state_topic: "owntracks/kiaceed/+/stat"
+    name: 'Car track'
+    unit_of_measurement: 'km'
+    value_template: "{{ value_json['distance'] | round(1) }}"
+
+
+# Resources counters
+  - platform: mqtt
+    state_topic: "/home/sensor/water"
+    name: "Hot water"
+    value_template: "{{ value_json.hot }}"
+
+  - platform: mqtt
+    state_topic: "/home/sensor/water"
+    name: "Cold water"
+    value_template: "{{ value_json.cold }}"
+
+  - platform: mqtt
+    state_topic: "/home/sensor/energy"
+    name: "Energy day"
+    value_template: "{{ value_json.day / 1000 }}"
+
+  - platform: mqtt
+    state_topic: "/home/sensor/energy"
+    name: "Energy night"
+    value_template: "{{ value_json.night / 1000 }}"
 
   - platform: rest
-    resource: "http://127.0.0.1/graphite/render?target=last(offsetToZero(home.energy.regpower))&format=json&from=now-1day"
-    name: power_per_day
+    resource: 'http://127.0.0.1:8086/query?db=home&q=select%20max%28%22regpower%22%29-min%28%22regpower%22%29%20as%20usage%20from%20%2F.%2A.energy%2F%20where%20time%3Enow%28%29-1d%20group%20by%20time%281d%29'
+    name: 'Power per day'
     unit_of_measurement: 'Wh'
-    value_template: "{{ value_json[0].datapoints[0][0] }}"
+    scan_interval: 360
+    value_template: "{{ value_json['results'][0]['series'][0]['values'][1][1] }}"
 
+
+# Network
   - platform: speedtest
     monitored_conditions:
       - ping
@@ -69,3 +107,4 @@
       - 6
       - 12
       - 18
+      - 21
