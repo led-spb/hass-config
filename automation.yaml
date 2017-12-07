@@ -9,13 +9,44 @@
     service: script.car_location_notify
 
 
+
+- alias: 'Car battery warning'
+  trigger:
+     platform: numeric_state
+     entity_id: device_tracker.kiaceed_tracker
+     value_template: '{{ states.device_tracker.kiaceed_tracker.attributes.battery }}'
+     below: 15
+  condition:
+     condition: template
+     value_template: '{{ (states.automation.car_battery_warning.attributes.last_triggered==None) or (as_timestamp(now()) - as_timestamp(states.automation.car_battery_warning.attributes.last_triggered)) > 86400 }}'
+  action:
+     service: notify.telegram
+     data_template: 
+        message: "Warning! Kia Ceed has low battery: {{ states.device_tracker.kiaceed_tracker.attributes.battery }}%"
+
+
+
+- alias: 'Car watchdog'
+  trigger:
+     platform: time
+     at: '08:00:00'
+  condition:
+     condition: template
+     value_template: '{{ (as_timestamp(now()) - as_timestamp( states.device_tracker.kiaceed_tracker.last_updated)) > 90000 }}'
+  action:
+     service: notify.telegram
+     data_template:
+        message: "Warning! Last message from Kia Ceed is too old: {{ relative_time(states.device_tracker.kiaceed_tracker.last_updated) }} ago."
+
+
+
 - alias: 'Update available notification'
   trigger:
-    platform: state
-    entity_id: updater.updater
+     platform: state
+     entity_id: updater.updater
   action:
-    service: mqtt.publish
-    data:
-      topic: '/home/notify'
-      payload_template: 'Update for Home Assistant is available.'
-      retain: False
+     service: mqtt.publish
+     data:
+       topic: '/home/notify'
+       payload_template: 'Update for Home Assistant is available.'
+       retain: False
