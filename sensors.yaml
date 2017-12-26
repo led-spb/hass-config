@@ -21,7 +21,7 @@
           value_template: "{{ distance(states.device_tracker.kiaceed_tracker) | round(1) }}"
        tv_channel:
           friendly_name: TV
-          value_template: "{% if states.media_player.kitchen_tv.attributes.source %}{{ states.media_player.kitchen_tv.attributes.source }}{% else %}Off{% endif %}"
+          value_template: "{{ states.media_player.kitchen_tv.attributes.channel if states.media_player.kitchen_tv.attributes.channel else states.media_player.kitchen_tv.attributes.source if states.media_player.kitchen_tv.attributes.source else 'Off' }}"
        door_opened:
           value_template: "{{ as_timestamp( states.binary_sensor.door.last_changed ) | timestamp_custom('%H:%M', true) }}"
 
