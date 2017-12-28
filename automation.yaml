@@ -50,3 +50,17 @@
        topic: '/home/notify'
        payload_template: 'Update for Home Assistant is available.'
        retain: False
+
+#- alias: 'Come out'
+#  trigger:
+#      platform: state
+#      entity_id: binary_sensor.door
+#      to: on
+#  condition:
+#      condition: and
+#      conditions:
+#         - condition: template
+#           value_template: "{{ states.binary_sensor.motion.state == 'off' }}"
+#         - condition: template
+#           value_template: "{{ (states.automation.come_out.last_triggered==None)  or  (as_timestamp(now()) - as_timestamp(states.automation.come_out.last_triggered) >= 120 ) }}"
+      

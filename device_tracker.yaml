@@ -1,5 +1,5 @@
   - platform: owntracks
 
   - platform: generic
-    host: 192.168.168.3
+    url: http://192.168.168.3/cgi-bin/assoclist.cgi
     consider_home: 30
