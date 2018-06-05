@@ -18,3 +18,7 @@
 - platform: ffmpeg
   name: Last video
   input: /home/hub/motion/lastmotion.mp4
+
+#- platform: ffmpeg
+#  name: Indoor
+#  input: /dev/video1 

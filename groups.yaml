@@ -73,6 +73,7 @@ camera:
 - camera.front_door
 #- camera.last_motion
 - camera.last_video
+- camera.indoor
 
 kia:
 - automation.car_movement_alert
