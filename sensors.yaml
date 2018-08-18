@@ -4,7 +4,7 @@
 
   - platform: mqtt
     name: Energy
-    device_class: power
+    device_class: battery
     unit_of_measurement: 'Wh'
     state_topic: /home/sensor/energy
     value_template: "{{ value_json.power }}"
@@ -21,9 +21,11 @@
           value_template: "{{ distance(states.device_tracker.kiaceed_tracker) | round(1) }}"
        tv_channel:
           friendly_name: TV
-          value_template: "{{ states.media_player.kitchen_tv.attributes.media_title if states.media_player.kitchen_tv.attributes.media_title else states.media_player.kitchen_tv.attributes.source if states.media_player.kitchen_tv.attributes.source else 'Off' }}"
+          value_template: "{{ states.media_player.kitchen_tv.attributes.media_title if states.media_player.kitchen_tv.attributes.media_title else states.media_player.kitchen_tv.attributes.source if states.media_player.kitchen_tv.attributes.source else 'off' }}"
        door_opened:
           value_template: "{{ as_timestamp( states.binary_sensor.door.last_changed ) | timestamp_custom('%H:%M', true) }}"
+       #door_state:
+       #   value_template: "{{ 'closed' if states.binary_sensor.door == 'off' else 'opened' }}"
 
   - platform: mqtt
     unit_of_measurement: "hosts"
@@ -111,3 +113,12 @@
 
   - platform: cert_expiry
     host: led-spb.no-ip.org
+
+  - platform: history_stats
+    name: "TV On today"
+    entity_id: media_player.kitchen_tv
+    type: time
+    state: playing
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+    

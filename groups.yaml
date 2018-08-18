@@ -7,17 +7,18 @@ default_view:
   - sensor.power_per_day
   - sensor.tv_channel
   - sensor.time
-  - sensor.door_opened
-  - device_tracker.iot_nexus
+  - sensor.door_state
+  - device_tracker.google_maps_103996828329285512687
   - device_tracker.kiaceed_tracker
-  - device_tracker.iot_lena
-  - sensor.outdoor
+  - device_tracker.google_maps_117201216841349537555
+  - binary_sensor.door
   - camera.front_door
   - camera.outdoor
   - camera.locations
   - weather.weather
   - group.network
   - media_player.kitchen_tv
+  - sensor.tv_on_today
   name: default_view
 
 security:

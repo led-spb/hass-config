@@ -1,5 +1,9 @@
   - platform: owntracks
 
-  - platform: generic
-    url: http://192.168.168.3/cgi-bin/assoclist.cgi
-    consider_home: 30
+  #- platform: generic
+  #  url: http://192.168.168.3/cgi-bin/assoclist.cgi
+  #  consider_home: 30
+
+  - platform: google_maps
+    username: !secret gmaps_username
+    password: !secret gmaps_password
